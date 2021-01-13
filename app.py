@@ -10,6 +10,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+import time
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('zCe0ioRrh3MBa8AOrdRVqzyAm8UIURnv0zjHBJru3KZJm8D+MurRMlyXwOQCGZRZgJxrT32ICuehuXLmIgsHQoSRaX5YZ/23a+1TY9v0evxi2xMsW1cOIcvm9Ur2N1BEIKASnrJDrzfwu6Ypx9IIVwdB04t89/1O/w1cDnyilFU=')
@@ -40,12 +42,12 @@ def callback():
 def handle_message(event):  #这个地方的功能就是 回复信息
     msg=event.message.text
     r='Pardon?'
-    if msg == 'Hi':
+    if msg in ['Hi', 'hi']:
         r='Hello, how are you doing today?'
     elif msg =='Im good':
         r='Nice!'
-    # elif msg =='What time is it' or msg=='time' or msg=='Time':
-    #     r=''
+    elif msg in ['time', 'Time', 'What time is it?', 'what time is it?', 'What time is it', 'what time is it']:
+        r=time.asctime( time.localtime(time.time()) )
     elif msg =='你吃饭了吗':
         r='还没，等一会去吃'
   
