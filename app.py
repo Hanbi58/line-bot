@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, StickerSendMessage
 )
 
 import time
@@ -42,6 +42,17 @@ def callback():
 def handle_message(event):  #这个地方的功能就是 回复信息
     msg=event.message.text
     r='Pardon?'
+
+    if 'sticker' in msg:
+        sticker_message = StickerSendMessage(
+            package_id='1',
+           sticker_id='1'
+        )
+        line_bot_api.reply_message(
+        event.reply_token,
+        sticker_message)
+        return
+
     if msg in ['Hi', 'hi']:
         r='Hello, how are you doing today?'
     elif msg =='Im good':
@@ -50,14 +61,13 @@ def handle_message(event):  #这个地方的功能就是 回复信息
         r=time.asctime( time.localtime(time.time()) )
     elif msg =='你吃饭了吗':
         r='还没，等一会去吃'
+    elif msg =='sticker':
+        r='还没，等一会去吃'
   
     
     line_bot_api.reply_message(
         event.reply_token,
-        StickerSendMessage(
-            package_id='1',
-            sticker_id='1'
-    ))
+        TextSendMessage(text=r))
 
 
 if __name__ == "__main__":  #python常见 需要这一行来判定是否执行以上代码 如果没有这一行 比人import就app.run
