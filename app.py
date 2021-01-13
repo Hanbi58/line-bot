@@ -38,11 +38,21 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):  #这个地方的功能就是 回复信息
-    # msg=event.message.text
-    msg='How are you doing today?'
+    msg=event.message.text
+    r='Pardon?'
+    if msg == 'Hi':
+        r='Hello, how are you doing today?'
+    elif msg =='Im good':
+        r='Nice!'
+    # elif msg =='What time is it' or msg=='time' or msg=='Time':
+    #     r=''
+    elif msg =='你吃饭了吗':
+        r='还没，等一会去吃'
+  
+    
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=msg))
+        TextSendMessage(text=s))
 
 
 if __name__ == "__main__":  #python常见 需要这一行来判定是否执行以上代码 如果没有这一行 比人import就app.run
