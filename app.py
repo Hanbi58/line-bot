@@ -42,7 +42,7 @@ def handle_message(event):  #这个地方的功能就是 回复信息
     msg='How are you doing today?'
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=msg)
+        TextSendMessage(text=msg))
 
 
 if __name__ == "__main__":  #python常见 需要这一行来判定是否执行以上代码 如果没有这一行 比人import就app.run
